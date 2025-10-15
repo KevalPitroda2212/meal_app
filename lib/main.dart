@@ -5,9 +5,12 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meal_app/features/authentication/authentication_controller.dart';
 import 'package:meal_app/features/authentication/init.dart';
+import 'package:meal_app/features/home/home_controller.dart';
+import 'package:meal_app/network/api_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  ApiManager.init();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyD_iFXRU-bMWWcx9LVLNBlgk0jI9JNPvLo",
@@ -27,6 +30,7 @@ void main() async {
     print("Failed to initialize Firebase: $error");
   });
   Get.put(AuthenticationController());
+  Get.put(HomeController());
   runApp(const MyApp());
 }
 
@@ -36,10 +40,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Meal App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        canvasColor: Colors.white,
-        scaffoldBackgroundColor: Colors.white
+        scaffoldBackgroundColor: Colors.white,
       ),
       home: InitScreen(),
     );

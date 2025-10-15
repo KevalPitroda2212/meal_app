@@ -58,19 +58,6 @@ class HomeController extends GetxController{
     }
   }
 
-
-  // updateQty(int categoryIndex, int foodIndex, bool isAdd){
-  //   if(isAdd){
-  //     mealsCategoryModel!.meals![categoryIndex].food![foodIndex].qty = (mealsCategoryModel!.meals![categoryIndex].food![foodIndex].qty ?? 0) + 1;
-  //   } else{
-  //     if((mealsCategoryModel!.meals![categoryIndex].food![foodIndex].qty ?? 0) > 0){
-  //       mealsCategoryModel!.meals![categoryIndex].food![foodIndex].qty = (mealsCategoryModel!.meals![categoryIndex].food![foodIndex].qty ?? 0) - 1;
-  //     }
-  //   }
-  //   update();
-  //
-  // }
-
   getAllFoodByCategory() async {
     for(Meals meal in mealsCategoryModel!.meals!){
       await  ApiManager.getFoodByCategory(category: meal.strCategory).then((value) {

@@ -48,14 +48,6 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
               ),
             ),
           ),
-          Center(
-            child: IconButton(
-              icon: Icon(Icons.logout),
-              onPressed: (){
-                _authenticationCont.signOut();
-              },
-            ),
-          ),
         ],
       ),
     );

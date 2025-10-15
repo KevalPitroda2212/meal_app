@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:meal_app/features/authentication/authentication_controller.dart';
+import 'package:meal_app/features/authentication/init.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -9,14 +13,20 @@ void main() async {
       apiKey: "AIzaSyD_iFXRU-bMWWcx9LVLNBlgk0jI9JNPvLo",
       projectId: "meal-app-aef3c",
       storageBucket: "meal-app-aef3c.firebasestorage.app",
-      messagingSenderId: "1234567890",
+      messagingSenderId: "21445603843",
       appId: "1:21445603843:android:0105ab4dbc2d27308bd436",
     ),
-  ).then((value) {
-    print("Firebase initialized");
+  ).then((app) {
+    FirebaseAuth.instanceFor(app: app);
+    GoogleSignIn.instance.initialize(
+      clientId: app.options.androidClientId,
+      nonce: app.name,
+      serverClientId: "21445603843-rmtcnvsj4hcdoc660u9t13sj84o3d706.apps.googleusercontent.com",
+    );
   }).catchError((error) {
     print("Failed to initialize Firebase: $error");
   });
+  Get.put(AuthenticationController());
   runApp(const MyApp());
 }
 
@@ -28,33 +38,10 @@ class MyApp extends StatelessWidget {
       title: 'Meal App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        canvasColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white
       ),
       home: InitScreen(),
-    );
-  }
-}
-
-class InitScreen extends StatefulWidget {
-  const InitScreen({super.key});
-
-  @override
-  State<InitScreen> createState() => _InitScreenState();
-}
-
-class _InitScreenState extends State<InitScreen> {
-
-  @override
-  void initState() {
-    super.initState();
-
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Initialization Screen'),
-      ),
     );
   }
 }
